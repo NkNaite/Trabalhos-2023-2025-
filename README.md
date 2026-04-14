@@ -25,6 +25,13 @@ Nesta pasta modelamos as bases públicas do Seguro Rural Brasileiro para simular
 *   **`01_Limpeza_e_Agrupamento_Dados.ipynb`**: Focado no poder transformacional do *Data Prep*. Lidando com imputação de nulos (`dropna`, `fillna`), cast inferido, sanitização de strings, feature engineering pesada e redução de dimensionalidade por interações escalares (`groupby`, pivots).
 *   **`02_Analise_Exploratoria_e_Estudo_Goias.ipynb`**: O coroamento visual dos dados (`EDA`). Uso avançado do ecossistema Matplotlib/Seaborn para comprovar (ou destruir) percepções errôneas do negócio. Abordamos dispersões de valores de apólices e isolamos macro-regiões no Cerrado a nível cirúrgico.
 
+### 3. Automação e Backend (`/Projetos_Automacao_Backend`)
+Soluções de engenharia de software focadas em extração de dados em larga escala, dashboards interativos e visão computacional:
+
+*   **`PaxDei_Market_App`**: Uma ferramenta robusta de análise de mercado para o MMO Pax Dei. Inclui uma esteira ETL completa (Python/HuggingFace), um servidor backend em Flask/Python e um dashboard interativo para identificação de oportunidades de arbitragem e crafting.
+*   **`Sucram_Video_Scene_Finder`**: Aplicação de Visão Computacional (OpenCV) e IA para detecção automática de cenas em vídeos. Inclui uma interface gráfica (GUI), rotinas de download automatizado e integração com Google Drive para processamento de ativos de mídia.
+
+
 ---
 
 ## 🚀 Como Explorar e Executar

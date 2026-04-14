@@ -1,4 +1,4 @@
 $ErrorActionPreference = 'Stop'
 git add .
-git commit -m "Refatoração (Financas_e_Quant): Estruturação de Risco Clássico e Transformada de Fourier via Paparazi"
+git commit -m "Refatoração: Inclusão da seção Projetos_Automacao_Backend com os cases PaxDei e Sucram"
 git push origin main
