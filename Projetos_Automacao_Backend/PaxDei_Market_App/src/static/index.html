@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pax Dei Advisor | Market Intelligence</title>
+    <meta name="description"
+        content="Advanced market analysis dashboard for Pax Dei, providing insights on crafting profitability, market liquidity, and arbitrage opportunities.">
+
+    <!-- Google Fonts: Outfit & Space Grotesk for a futuristic/clean look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons: RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">
+                    <i class="ri-bar-chart-grouped-fill"></i>
+                </div>
+                <span class="brand-text">Pax Advisor</span>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="#dashboard" class="nav-item active" onclick="switchTab('dashboard')">
+                    <i class="ri-dashboard-3-line"></i>
+                    <span>Dashboard</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="status-indicator online">
+                    <span class="dot"></span> System Online
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-bar">
+                <div class="page-title">
+                    <h1>Dashboard Overview</h1>
+                    <p class="subtitle">Latest market signals and crafting opportunities.</p>
+                </div>
+
+                <div class="search-container">
+                    <i class="ri-search-line search-icon"></i>
+                    <input type="text" id="global-search" placeholder="Search Item (e.g. Silver Ore)..."
+                        autocomplete="off">
+                    <div id="search-results" class="search-dropdown"></div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn-primary" onclick="triggerFetch()">
+                        <i class="ri-refresh-line"></i> Refresh Data
+                    </button>
+                </div>
+            </header>
+
+            <!-- Tab Navigation -->
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="switchTab('dashboard')">
+                    <i class="ri-dashboard-3-line"></i> Dashboard
+                </button>
+                <button class="tab-btn" onclick="switchTab('market')">
+                    <i class="ri-line-chart-line"></i> Market Data
+                </button>
+                <button class="tab-btn" onclick="switchTab('arbitrage')">
+                    <i class="ri-treasure-map-line"></i> Arbitrage
+                </button>
+                <button class="tab-btn" onclick="switchTab('logistics')">
+                    <i class="ri-truck-line"></i> Logistics
+                </button>
+                <button class="tab-btn" onclick="switchTab('mercadorias')">
+                    <i class="ri-scales-3-line"></i> Mercadorias
+                </button>
+                <button class="tab-btn" onclick="switchTab('analysis')">
+                    <i class="ri-search-eye-line"></i> Item Analysis
+                </button>
+            </div>
+            
+            <!-- Filters Row -->
+            <div class="filters-row" style="margin-bottom: 20px; display: flex; gap: 10px;">
+                <select id="tier-filter" onchange="applyFilters()">
+                    <option value="all">All Tiers</option>
+                    <option value="1">Tier 1</option>
+                    <option value="2">Tier 2</option>
+                    <option value="3">Tier 3</option>
+                    <option value="4">Tier 4</option>
+                </select>
+            </div>
+
+            <!-- TAB 1: Dashboard -->
+            <div id="tab-dashboard" class="tab-content active">
+                <div class="dashboard-grid">
+                    <!-- Crafting -->
+                    <section class="panel full-width highlight-panel">
+                        <div class="panel-header">
+                            <div class="header-left">
+                                <i class="ri-flashlight-fill icon-highlight"></i>
+                                <h2>Top Crafting Opportunities</h2>
+                            </div>
+                            <div class="header-right">
+                                <span class="tag">Smart Sourcing Active</span>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="crafting-container" class="table-wrapper">
+                                <div class="loading-state">
+                                    <div class="spinner"></div>
+                                    <p>Analyzing opportunities...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- TAB 2: Market Data -->
+            <div id="tab-market" class="tab-content" style="display:none">
+                <div class="dashboard-grid">
+                    <!-- Liquidity -->
+                    <section class="panel">
+                        <div class="panel-header">
+                            <div class="header-left">
+                                <i class="ri-fire-fill icon-fire"></i>
+                                <h2>High Liquidity Items</h2>
+                            </div>
+                            <div class="header-right">
+                                <select id="tier-filter-liquidity" class="filter-small" onchange="loadLiquidity()">
+                                    <option value="all">All Tiers</option>
+                                    <option value="1">T1</option>
+                                    <option value="2">T2</option>
+                                    <option value="3">T3</option>
+                                    <option value="4">T4</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="liquidity-container" class="table-wrapper">
+                                <div class="loading-state">
+                                    <div class="spinner"></div>
+                                    <p>Fetching sales data...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Demand Intensity -->
+                    <section class="panel">
+                        <div class="panel-header">
+                            <div class="header-left">
+                                <i class="ri-bar-chart-2-fill icon-fire"></i>
+                                <h2>Demand Intensity</h2>
+                            </div>
+                            <div class="header-right">
+                                <select id="tier-filter-demand" class="filter-small" onchange="loadDemandIntensity()">
+                                    <option value="all">All Tiers</option>
+                                    <option value="1">T1</option>
+                                    <option value="2">T2</option>
+                                    <option value="3">T3</option>
+                                    <option value="4">T4</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="demand-intensity-container" class="table-wrapper">
+                                <div class="loading-state">
+                                    <div class="spinner"></div>
+                                    <p>Calculating intensity...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Regional Liquidity -->
+                    <section class="panel">
+                        <div class="panel-header">
+                            <div class="header-left">
+                                <i class="ri-map-pin-line icon-map"></i>
+                                <h2>Regional Liquidity (Top Zones)</h2>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="regional-liquidity-container" class="table-wrapper">
+                                <div class="loading-state">
+                                    <div class="spinner"></div>
+                                    <p>Calculating regional flow...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- TAB 3: Arbitrage -->
+            <div id="tab-arbitrage" class="tab-content" style="display:none">
+                <div class="dashboard-grid">
+                    <!-- Arbitrage -->
+                    <section class="panel full-width">
+                        <div class="panel-header">
+                            <div class="header-left">
+                                <i class="ri-treasure-map-line icon-map"></i>
+                                <h2>Smart Arbitrage Routes</h2>
+                            </div>
+                            <div class="header-right" style="display: flex; gap: 10px;">
+                                <select id="filter-province-arbitrage" class="filter-small" onchange="loadArbitrage()">
+                                    <option value="">Todo o Servidor</option>
+                                    <option value="Kerys">Kerys</option>
+                                    <option value="Ancien">Ancien</option>
+                                    <option value="Inis Gallia">Inis Gallia</option>
+                                    <option value="Merrie">Merrie</option>
+                                </select>
+                                <select id="tier-filter-arbitrage" class="filter-small" onchange="loadArbitrage()">
+                                    <option value="all">All Tiers</option>
+                                    <option value="1">T1</option>
+                                    <option value="2">T2</option>
+                                    <option value="3">T3</option>
+                                    <option value="4">T4</option>
+                                </select>
+                                <span class="tag">7d Median</span>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="arbitrage-container" class="table-wrapper">
+                                <div class="loading-state">
+                                    <div class="spinner"></div>
+                                    <p>Calculating scores...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- TAB 4: Logistics -->
+            <div id="tab-logistics" class="tab-content" style="display:none">
+                 <div class="dashboard-grid">
+                    <!-- CONSTANT DEMAND -->
+                    <section class="panel">
+                        <div class="panel-header">
+                            <div class="header-left">
+                                <i class="ri-repeat-line icon-highlight"></i>
+                                <h2>Constant Demand</h2>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="constant-orders-container" class="table-wrapper"></div>
+                        </div>
+                    </section>
+                    <!-- ... Same as before ... -->
+                </div>
+            </div>
+
+            <!-- TAB 5: Oferta e Demanda (Mercadorias) -->
+            <div id="tab-mercadorias" class="tab-content" style="display:none">
+                <div class="dashboard-grid">
+                    <section class="panel full-width">
+                        <div class="panel-header">
+                            <div class="header-left">
+                                <i class="ri-scales-3-line icon-highlight"></i>
+                                <h2>Oferta vs Demanda (Mercadorias)</h2>
+                            </div>
+                            <div class="header-right" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; align-items: center;">
+                                <select id="sort-mercadorias" class="filter-small" onchange="loadMercadorias()">
+                                    <option value="Total_Supply">Maior Oferta (Unid.)</option>
+                                    <option value="Units_Sold">Maior Demanda (Unid.)</option>
+                                    <option value="Gold_Sold">Maior Demanda (Gold)</option>
+                                    <option value="Arbitrage_Score">Score Arbitragem</option>
+                                    <option value="Profitcraft_Score">Score Profitcraft</option>
+                                </select>
+                                <button id="sort-order-btn" class="filter-small" style="background:#eab308; color:#000; cursor:pointer; font-weight:bold; border:none; padding:4px 8px; border-radius:4px;" onclick="toggleSortOrder()">⬇️ Desc</button>
+                                
+                                <select id="filter-province" class="filter-small" onchange="updateValleyDropdown(); loadMercadorias()">
+                                    <option value="">Todas as Províncias</option>
+                                </select>
+                                <select id="filter-valley" class="filter-small" onchange="loadMercadorias()">
+                                    <option value="">Todos os Vales</option>
+                                </select>
+                                <select id="filter-days" class="filter-small" onchange="loadMercadorias()">
+                                    <option value="1">Ajuste: 1 Dia</option>
+                                    <option value="3">Ajuste: 3 Dias</option>
+                                    <option value="7" selected>Ajuste: 7 Dias</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="mercadorias-container" class="table-wrapper">
+                                <div class="loading-state">
+                                    <div class="spinner"></div>
+                                    <p>Loading locations...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- TAB 6: Item Analysis -->
+            <div id="tab-analysis" class="tab-content" style="display:none">
+                <div class="dashboard-grid">
+                    <section class="panel full-width">
+                        <div class="panel-header">
+                            <div class="header-left">
+                                <i class="ri-search-eye-line icon-highlight"></i>
+                                <h2 id="analysis-title">Item Analysis: <span
+                                        style="color:var(--text-accent)">None</span></h2>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <!-- Producers List -->
+                            <div id="analysis-producers-list" class="producers-list" style="margin-bottom: 20px;"></div>
+                            
+                            <!-- Detailed Crafting Blueprint -->
+                            <div id="analysis-blueprint" style="margin-bottom: 30px;">
+                                <h3>Crafting Blueprint (Best Sourcing)</h3>
+                                <div id="blueprint-container" class="table-wrapper"></div>
+                            </div>
+                            
+                            <!-- Arbitrage Opportunities for Item -->
+                            <div id="analysis-arbitrage" style="margin-bottom: 30px;">
+                                <h3>Arbitrage Opportunities</h3>
+                                <div id="item-arbitrage-container" class="table-wrapper"></div>
+                            </div>
+
+                            <!-- Charts Grid -->
+                            <div class="charts-wrapper">
+                                <div class="chart-container">
+                                    <h3>Median Price History</h3>
+                                    <canvas id="priceChart"></canvas>
+                                </div>
+                                <div class="chart-container">
+                                    <h3>Daily Demand (Units Sold)</h3>
+                                    <canvas id="demandChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="/static/app.js?v=7"></script>
+</body>
+
+</html>
