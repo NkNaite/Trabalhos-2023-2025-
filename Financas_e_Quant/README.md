@@ -1,8 +1,6 @@
 # 📈 Finanças Quantitativas e Engenharia de Portfólio
 
-Este repositório abriga a intersecção entre **Matemática Avançada, Estatística e o Mercado Financeiro**. O ambiente foca na implementação sistemática de modelos preditivos, precificação teórica de risco e backtests algorítmicos reais usando Python.
-
-O modelo técnico transcende a simples análise visual "gráfica", mergulhando firme na lógica orientada a dados *Intraday*, otimizadores Convexos (SciPy) e *Digital Signal Processing* (DSP).
+Este repositório consolida o desenvolvimento de modelos quantitativos voltados para a otimização de portfólio e gestão de risco, unindo a teoria econômica (Markowitz/CAPM) à automação em Python. O foco central é a aplicação prática de conceitos de Fronteira Eficiente, VaR e Índice de Sharpe, transformando dados brutos em suporte tático para a tomada de decisão no mercado financeiro e buscando maximizar o retorno sob uma gestão de risco rigorosa.
 
 Abaixo estão detalhados os três motores analíticos que compõem este portfólio. Todos eles extraem e operam sobre base de dados reais de mercado.
 
@@ -15,20 +13,14 @@ Abaixo estão detalhados os três motores analíticos que compõem este portfól
   Calcular e demonstrar estruturalmente o Risco Sistêmico do mercado, fornecendo através da Teoria Moderna de Portfólio (Markowitz) o balanço ideal (pesos %) de carteira para maximizar o retorno da estratégia em relação à exposição (Max Sharpe Ratio). Extrema utilidade para *Wealth Management* e alocação dinâmica patrimonial.
   
 * **Etapas do processo:**
-  1. *Aquisição e Limpeza de Dados:* Via API pública do Yahoo Finance (`yfinance`), puxamos dados históricos (Ativos isolados, Curva de taxas, IBOV versus ASX200). Trata-se a falta de liquidez ou buracos de feriados com interpolações `ffill()`.
-  
-  ![Step 1 - Aquisição](images/01_step1_prices.png)
-  
+  1. *Aquisição e Limpeza de Dados:* Via API pública do Yahoo Finance (`yfinance`), puxamos dados históricos (Ativos isolados, Curva de taxas, IBOV versus ASX200).
   2. *Matriz de Variância-Covariância:* Criação da matriz revelando ativos não correlacionados.
   
   ![Step 2 - Matriz de Covariância](images/01_step2_cov.png)
   
-  3. *Otimização Quadrática Numérica e Fronteira Eficiente:* Usando algoritmos matemáticos como o SLSQP do `scipy.optimize`, testamos milhares de portfólios aleatórios na escala gráfica de Risco-Retorno. A curva parabólica aponta a eficiência superior.
+  3. *Otimização Quadrática Numérica e Fronteira Eficiente:* Usando algoritmos matemáticos como o SLSQP do `scipy.optimize`, testamos milhares de portfólios aleatórios na escala gráfica de Risco-Retorno.
   
   ![Step 3 - Fronteira Eficiente](images/01_step3_frontier.png)
-
-* **Resultado prático da execução:**
-  O algoritmo numérico devolve as alocações percentuais rigorosas que performarão na Fronteira Eficiente Teórica, garantindo a redução do *"Drawdown"* em crises, exibidas pontualmente no gráfico do Step 3.
 
 ---
 
@@ -39,40 +31,44 @@ Abaixo estão detalhados os três motores analíticos que compõem este portfól
   Criar um robô validador (*Backtester*) para operar cruzamentos direcionais e regras matemáticas contra preços históricos sem arriscar capital. Essencial para verificar estatisticamente se a estratégia de trade possui "Margem de Vitória (Win Rate)" real antes do deploy.
 
 * **Etapas do processo:**
-  1. Comparação Direta: *Buy'n Hold versus 20 Estratégias*: Geração dinâmica de dezenas de métricas e traçado de rentabilidade para encontrar vantagens estatísticas sobre o mercado passivo.
+  1. Comparação Direta: *Buy'n Hold versus 20 Estratégias*: Geração dinâmica de dezenas de métricas para encontrar vantagens estatísticas sobre o mercado passivo.
   
   ![Step 1 - 20 Estrategias vs BnH](images/02_step1_20_strategies.png)
   
-  2. Escolha de Estratégias Superiores: Filtragem algorítmica para detectar quais regras bateram o *Buy'n Hold* no período, e montagem de uma Carteira Diversificada unindo os sinais de múltiplas estratégias vencedoras operando simultaneamente.
+  2. Escolha de Estratégias Superiores: Filtragem algorítmica para detectar quais regras bateram o *Buy'n Hold* no período e montagem de uma Carteira Diversificada.
   
   ![Step 2 - Carteira de Estrategias](images/02_step2_best_portfolio.png)
   
-  3. Implementação e Teste de Performance com Regras Diversas: Aprofundamento do backtest da carteira unindo regras suplementares inseridas no código (como filtro em RSI, saídas por Trailing Stop ou Stop-Loss estático) e comparando com o sinal puro para determinar a performance perfeita.
+  3. Implementação e Teste de Performance: Aprofundamento do backtest da carteira unindo regras suplementares inseridas no código (RSI, Trailing Stop ou Stop-Loss).
   
   ![Step 3 - Teste de Performance das Regras](images/02_step3_rules_comparison.png)
 
-* **Resultado prático da execução:**
-  A célula retorna o relatório numérico consolidado do número total de Trades realizados, Win Rate exato e capital projetado, provando algoritmicamente a existência (ou falta) de vantagem direcional pura.
-
 ---
 
-### 3️⃣ Processamento Contínuo de Sinais (Filtro de Fourier)
-**Arquivo:** `03_Processamento_Sinais_Fourier_Paparazi.ipynb`
+### 3️⃣ Processamento de Sinais com Transformada de Fourier (Paparazi v4)
+**Arquivo:** `03_Processamento_Sinais_Fourier_Paparazi.ipynb` e `paparazi_v4.py`
 
 * **Objetivo + Utilidade:**
-  Destilar dados caóticos de mercado financeiro em tendências puras, através da Transformada de Rápida Fourier (FFT), anulando picos (Spikes) isolados e limpando "ruído branco" da distruibuição. Utilidade extrema para fundos High-Frequency Trading (HFT).
+  Destilar dados caóticos de mercado em sinal puro através de **Digital Signal Processing (DSP)**. O modelo utiliza a lógica de Fourier para isolar ciclos harmônicos e remover o ruído branco inerente às cotações, permitindo uma visualização clara da tendência "Alpha".
 
-* **Etapas do processo:**
-  1. Carregamento de arrays pesados ou base de dados em `csv` intradiário contínuo como S&P500 / IVVB11 para ter base ruidosa do modelo log-market.
-  2. Submissão das séries de log-retorno a uma varredura Numérica de Frequência e tangentes do modelo Paparazi/DSP.
-  3. Filtro e Reversão Inversa com matriz Tangencial, reconstruindo a linha cronológica de preço, mas dessa vez transformada apenas na onda "Alpha" perfeita de direcionamento.
+* **Fundamentação Matemática (Fourier):**
+  A Transformada de Fourier permite decompor uma série temporal complexa (o preço de um ativo) em suas frequências constituintes (senos e cossenos). Em termos matemáticos, convertemos o sinal do domínio do tempo para o domínio da frequência, identificando quais ciclos repetitivos possuem maior potência. Ao aplicar filtros nas altas frequências (ruído), conseguimos reconstruir o gráfico capturando apenas a essência direcional.
 
-* **Resultado prático da execução:**
-  Os desvios padrões violentos e sombras gráficas são engolidos matematicamente, resultando numa onda previsível livre de falsos rompimentos técnicos.
+* **Aplicação em Gráficos de Preços:**
+  No mercado financeiro, o preço é composto por *Tendência + Ciclos + Ruído*. O algoritmo **Paparazi v4** aqui implementado aplica múltiplas escalas fractais para isolar esses ciclos. Ele utiliza a tangente inversa das variações percentuais para normalizar a força de cada frequência, resultando em um indicador que não sofre de "atraso" (*lag*) como as médias móveis tradicionais.
+
+* **Análise Visual do Dashboard:**
   
-  <!-- Cole a sua imagem final do projeto aqui embaixo -->
+  ![Análise Paparazi v4 - Dashboard Interativo](images/03_paparazi_dashboard.png)
+  
+  O dashboard acima exibe a análise da IVVB11 (S&P 500 BR). 
+  - **Pane Superior**: O gráfico de Candlesticks original mostrando a volatilidade bruta.
+  - **Pane Inferior (O indicador)**: A linha branca representa o **Sinal Alpha** reconstruído após a filtragem DSP. As bandas coloridas (histogramas) indicam a dominância de frequência em diferentes níveis:
+    - **Verde/Azul**: Dominância de ciclos de alta com momentum positivo.
+    - **Vermelho/Laranja**: Pressão de ciclos de baixa ou exaustão de tendência.
+  - **Observação Prática**: Note como o sinal antecipa as reversões de tendência ao identificar a perda de força nos componentes cíclicos antes mesmo da mudança brusca no preço unitário.
 
 ---
 
 ## 🚀 Como Visualizar
-Se clonar este repositório para inspecionar, abra os respectivos notebooks num Kernel limpo (VS Code, Jupyter) e rode `Run All`. Caso falte bibliotecas vitais, providenciamos na raiz as restrições por meio do arquivo `requirements.txt`.
+Se clonar este repositório para inspecionar, abra os respectivos notebooks ou execute `python paparazi_v4.py` para gerar o Dashboard HTML interativo. Caso falte bibliotecas vitais, utilize o arquivo `requirements.txt`.
