@@ -1,6 +1,7 @@
 # 🔬 Financial Data Playground (2023 - 2025)
 
 Este repositório reúne meus projetos desenvolvidos entre 2023 e 2025, focados em Economia Quantitativa, Engenharia de Dados e Automação. Utilizo Python e SQL para converter teorias complexas em soluções práticas, abrangendo desde a otimização de portfólios financeiros e gestão de risco até a criação de ferramentas de análise de dados para economias virtuais. 
+
 ---
 
 ## 🏛️ Estrutura Arquitetural do Repositório
