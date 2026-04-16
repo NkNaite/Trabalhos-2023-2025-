@@ -23,7 +23,7 @@ Abaixo estão detalhados os três motores analíticos que compõem este portfól
   O algoritmo numérico devolve as alocações percentuais rigorosas que performarão na Fronteira Eficiente Teórica, garantindo a redução do *"Drawdown"* em crises.
   *(Abaixo, visualizações de Matrizes de Correlação e Evolução Diária)*
   
-  ![Gráfico Ilustrativo de Análise de Risco Quant](#) <!-- Você pode anexar aqui o print gerado pela sua execução das matrizes de Markowitz -->
+  ![Gráfico Ilustrativo de Análise de Risco Quant](images/01_markowitz.svg)
 
 ---
 
@@ -60,7 +60,7 @@ Abaixo estão detalhados os três motores analíticos que compõem este portfól
 * **Resultado prático da execução:**
   Os desvios padrões violentos e sombras gráficas são engolidos matematicamente, resultando numa onda previsível livre de "falso-positivos". Isso constata robusta fluência em Engenharia de Sinais.
   
-  ![Filtros FFT Predição](#) <!-- Gerei um modelo. Ao rodar o dataset IVVB11 ou rodar a lógica completa, anexe a saída limpa da Fourier aqui -->
+  ![Filtros FFT Predição](images/03_fourier.svg)
 
 ---
 

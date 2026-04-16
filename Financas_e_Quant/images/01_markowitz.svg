@@ -1,0 +1,40 @@
+<svg width="700" height="450" viewBox="0 0 700 450" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#121212" rx="10"/>
+  
+  <g transform="translate(60, 40)">
+    <!-- Grid lines -->
+    <path d="M0,0 L0,350 M100,0 L100,350 M200,0 L200,350 M300,0 L300,350 M400,0 L400,350 M500,0 L500,350 M600,0 L600,350" stroke="#333" stroke-width="1" />
+    <path d="M0,0 L600,0 M0,70 L600,70 M0,140 L600,140 M0,210 L600,210 M0,280 L600,280 M0,350 L600,350" stroke="#333" stroke-width="1" />
+    
+    <!-- Efficient Frontier Curve (approximate) -->
+    <path d="M100,320 Q120,180 300,100 T580,20" fill="none" stroke="#4a90e2" stroke-width="4" stroke-dasharray="8,4" />
+    
+    <!-- Sub-optimal portfolios (scatter cloud) -->
+    <g fill="#4a90e2" opacity="0.4">
+      <circle cx="150" cy="280" r="3"/><circle cx="160" cy="290" r="3"/><circle cx="180" cy="260" r="3"/>
+      <circle cx="200" cy="230" r="3"/><circle cx="210" cy="270" r="3"/><circle cx="220" cy="210" r="3"/>
+      <circle cx="230" cy="240" r="3"/><circle cx="240" cy="250" r="3"/><circle cx="250" cy="190" r="3"/>
+      <circle cx="260" cy="220" r="3"/><circle cx="280" cy="180" r="3"/><circle cx="290" cy="210" r="3"/>
+      <circle cx="310" cy="170" r="3"/><circle cx="320" cy="190" r="3"/><circle cx="330" cy="150" r="3"/>
+      <circle cx="350" cy="180" r="3"/><circle cx="360" cy="160" r="3"/><circle cx="380" cy="140" r="3"/>
+      <circle cx="390" cy="170" r="3"/><circle cx="410" cy="130" r="3"/><circle cx="420" cy="160" r="3"/>
+      <circle cx="450" cy="110" r="3"/><circle cx="460" cy="140" r="3"/><circle cx="480" cy="100" r="3"/>
+      <circle cx="490" cy="130" r="3"/><circle cx="510" cy="90" r="4"/><circle cx="520" cy="120" r="3"/>
+      <circle cx="540" cy="80" r="3"/><circle cx="550" cy="100" r="3"/><circle cx="570" cy="70" r="3"/>
+    </g>
+    
+    <!-- Optimal Portfolio Point (Max Sharpe) -->
+    <circle cx="288" cy="109" r="8" fill="#e74c3c" stroke="#fff" stroke-width="2"/>
+    <text x="305" y="105" fill="#e74c3c" font-family="sans-serif" font-weight="bold" font-size="14">Max Sharpe Ratio</text>
+    
+    <!-- Min Volatility Point -->
+    <circle cx="102" cy="320" r="6" fill="#2ecc71" stroke="#fff" stroke-width="2"/>
+    <text x="120" y="325" fill="#2ecc71" font-family="sans-serif" font-weight="bold" font-size="14">Min Volatility</text>
+    
+    <!-- Axis Labels -->
+    <text x="300" y="390" fill="#aaa" font-family="sans-serif" font-size="14" text-anchor="middle">Volatilidade Anualizada (Risco %)</text>
+    <text x="-40" y="175" fill="#aaa" font-family="sans-serif" font-size="14" text-anchor="middle" transform="rotate(-90 -40,175)">Retorno Esperado (%)</text>
+  </g>
+  
+  <text x="350" y="30" fill="#fff" font-family="sans-serif" font-size="18" font-weight="bold" text-anchor="middle">Fronteira Eficiente - Otimização de Markowitz</text>
+</svg>
