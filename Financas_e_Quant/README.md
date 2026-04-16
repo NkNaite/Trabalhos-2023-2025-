@@ -16,14 +16,19 @@ Abaixo estão detalhados os três motores analíticos que compõem este portfól
   
 * **Etapas do processo:**
   1. *Aquisição e Limpeza de Dados:* Via API pública do Yahoo Finance (`yfinance`), puxamos dados históricos (Ativos isolados, Curva de taxas, IBOV versus ASX200). Trata-se a falta de liquidez ou buracos de feriados com interpolações `ffill()`.
+  
+  ![Step 1 - Aquisição](images/01_step1_prices.png)
+  
   2. *Matriz de Variância-Covariância:* Criação da matriz revelando ativos não correlacionados.
-  3. *Otimização Quadrática Numérica:* Usando algoritmos matemáticos como o SLSQP do `scipy.optimize`, a função converge nos pesos que blindam e minimizam a volatilidade contra a Taxa Livre de Risco (Selic).
+  
+  ![Step 2 - Matriz de Covariância](images/01_step2_cov.png)
+  
+  3. *Otimização Quadrática Numérica e Fronteira Eficiente:* Usando algoritmos matemáticos como o SLSQP do `scipy.optimize`, testamos milhares de portfólios aleatórios na escala gráfica de Risco-Retorno. A curva parabólica aponta a eficiência superior.
+  
+  ![Step 3 - Fronteira Eficiente](images/01_step3_frontier.png)
 
 * **Resultado prático da execução:**
-  O algoritmo numérico devolve as alocações percentuais rigorosas que performarão na Fronteira Eficiente Teórica, garantindo a redução do *"Drawdown"* em crises.
-  *(Abaixo, visualizações de Matrizes de Correlação e Evolução Diária)*
-  
-  ![Gráfico Ilustrativo de Análise de Risco Quant](images/01_markowitz_real.png)
+  O algoritmo numérico devolve as alocações percentuais rigorosas que performarão na Fronteira Eficiente Teórica, garantindo a redução do *"Drawdown"* em crises, exibidas pontualmente no gráfico do Step 3.
 
 ---
 
@@ -35,14 +40,19 @@ Abaixo estão detalhados os três motores analíticos que compõem este portfól
 
 * **Etapas do processo:**
   1. Extração granular de cotações em níveis diários e Intraday (ex: agrupamentos de fechamento).
+  
+  ![Step 1 - Ativos](images/02_Backtesting_e_Estrategias_Quantitativas_0.png)
+  
   2. Vetorização das regras operacionais (ex: gatilho condicional de compra quando Média Curta transpassa Média Longa de volatilidade).
+  
+  ![Step 2 - Regras](images/02_Backtesting_e_Estrategias_Quantitativas_10.png)
+  
   3. Implementação da "Controladoria de Operação", medindo saídas forçadas via Stop-Loss agressivo e cálculo do Capital Inicial evoluindo dia após dia PnL (Lucro Líquido Teórico).
+  
+  ![Step 3 - PnL](images/02_Backtesting_e_Estrategias_Quantitativas_23.png)
 
 * **Resultado prático da execução:**
-  A célula retorna o relatório numérico consolidado do número total de Trades realizados, Win Rate exato e capital projetado positivo/negativo. Seguido dos plots visuais de convergência.
-  
-  ![Resultados Visuais de Trading](images/02_Backtesting_e_Estrategias_Quantitativas_0.png)
-  *(Plotagem real da execução algorítmica registrando o rastreamento das curvas de sinal preditivas.)*
+  A célula retorna o relatório numérico consolidado do número total de Trades realizados, Win Rate exato e capital projetado positivo/negativo. Seguido dos plots visuais da evolução do saldo da conta na etapa 3.
 
 ---
 
@@ -53,14 +63,20 @@ Abaixo estão detalhados os três motores analíticos que compõem este portfól
   Destilar dados caóticos de mercado financeiro em tendências puras, através da Transformada de Rápida Fourier (FFT), anulando picos (Spikes) isolados e limpando "ruído branco" da distruibuição. Utilidade extrema para fundos High-Frequency Trading (HFT).
 
 * **Etapas do processo:**
-  1. Carregamento de arrays pesados ou base de dados em `csv` intradiário contínuo.
-  2. Submissão das séries de log-retorno a uma varredura Numérica de Frequência, isolando funções seno e cosseno dos padrões gráficos repetitivos.
+  1. Carregamento de arrays pesados ou base de dados em `csv` intradiário contínuo como S&P500 / IVVB11 para ter base ruidosa do modelo log-market.
+  
+  ![Step 1 - Original](images/03_step1_raw.png)
+  
+  2. Submissão das séries de log-retorno a uma varredura Numérica de Frequência e tangentes do modelo Paparazi/DSP.
+  
+  ![Step 2 - Varredura Numérica](images/03_step2_fft.png)
+  
   3. Filtro e Reversão Inversa com matriz Tangencial, reconstruindo a linha cronológica de preço, mas dessa vez transformada apenas na onda "Alpha" perfeita de direcionamento.
+  
+  ![Step 3 - Onda Filtrada](images/03_step3_filter.png)
 
 * **Resultado prático da execução:**
-  Os desvios padrões violentos e sombras gráficas são engolidos matematicamente, resultando numa onda previsível livre de "falso-positivos". Isso constata robusta fluência em Engenharia de Sinais.
-  
-  ![Filtros FFT Predição](images/03_fourier_real.png)
+  Os desvios padrões violentos e sombras gráficas são engolidos matematicamente, resultando numa onda previsível livre de falsos rompimentos técnicos.
 
 ---
 
