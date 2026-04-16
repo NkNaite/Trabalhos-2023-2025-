@@ -39,20 +39,20 @@ Abaixo estão detalhados os três motores analíticos que compõem este portfól
   Criar um robô validador (*Backtester*) para operar cruzamentos direcionais e regras matemáticas contra preços históricos sem arriscar capital. Essencial para verificar estatisticamente se a estratégia de trade possui "Margem de Vitória (Win Rate)" real antes do deploy.
 
 * **Etapas do processo:**
-  1. Extração granular de cotações em níveis diários e Intraday (ex: agrupamentos de fechamento).
+  1. Comparação Direta: *Buy'n Hold versus 20 Estratégias*: Geração dinâmica de dezenas de métricas e traçado de rentabilidade para encontrar vantagens estatísticas sobre o mercado passivo.
   
-  ![Step 1 - Ativos](images/02_Backtesting_e_Estrategias_Quantitativas_0.png)
+  ![Step 1 - 20 Estrategias vs BnH](images/02_step1_20_strategies.png)
   
-  2. Vetorização das regras operacionais (ex: gatilho condicional de compra quando Média Curta transpassa Média Longa de volatilidade).
+  2. Escolha de Estratégias Superiores: Filtragem algorítmica para detectar quais regras bateram o *Buy'n Hold* no período, e montagem de uma Carteira Diversificada unindo os sinais de múltiplas estratégias vencedoras operando simultaneamente.
   
-  ![Step 2 - Regras](images/02_Backtesting_e_Estrategias_Quantitativas_10.png)
+  ![Step 2 - Carteira de Estrategias](images/02_step2_best_portfolio.png)
   
-  3. Implementação da "Controladoria de Operação", medindo saídas forçadas via Stop-Loss agressivo e cálculo do Capital Inicial evoluindo dia após dia PnL (Lucro Líquido Teórico).
+  3. Implementação e Teste de Performance com Regras Diversas: Aprofundamento do backtest da carteira unindo regras suplementares inseridas no código (como filtro em RSI, saídas por Trailing Stop ou Stop-Loss estático) e comparando com o sinal puro para determinar a performance perfeita.
   
-  ![Step 3 - PnL](images/02_Backtesting_e_Estrategias_Quantitativas_23.png)
+  ![Step 3 - Teste de Performance das Regras](images/02_step3_rules_comparison.png)
 
 * **Resultado prático da execução:**
-  A célula retorna o relatório numérico consolidado do número total de Trades realizados, Win Rate exato e capital projetado positivo/negativo. Seguido dos plots visuais da evolução do saldo da conta na etapa 3.
+  A célula retorna o relatório numérico consolidado do número total de Trades realizados, Win Rate exato e capital projetado, provando algoritmicamente a existência (ou falta) de vantagem direcional pura.
 
 ---
 
@@ -64,19 +64,13 @@ Abaixo estão detalhados os três motores analíticos que compõem este portfól
 
 * **Etapas do processo:**
   1. Carregamento de arrays pesados ou base de dados em `csv` intradiário contínuo como S&P500 / IVVB11 para ter base ruidosa do modelo log-market.
-  
-  ![Step 1 - Original](images/03_step1_raw.png)
-  
   2. Submissão das séries de log-retorno a uma varredura Numérica de Frequência e tangentes do modelo Paparazi/DSP.
-  
-  ![Step 2 - Varredura Numérica](images/03_step2_fft.png)
-  
   3. Filtro e Reversão Inversa com matriz Tangencial, reconstruindo a linha cronológica de preço, mas dessa vez transformada apenas na onda "Alpha" perfeita de direcionamento.
-  
-  ![Step 3 - Onda Filtrada](images/03_step3_filter.png)
 
 * **Resultado prático da execução:**
   Os desvios padrões violentos e sombras gráficas são engolidos matematicamente, resultando numa onda previsível livre de falsos rompimentos técnicos.
+  
+  <!-- Cole a sua imagem final do projeto aqui embaixo -->
 
 ---
 
