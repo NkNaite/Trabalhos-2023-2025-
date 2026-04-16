@@ -1,9 +1,6 @@
 # 🔬 Financial Data Playground (2023 - 2025)
 
-Bem-vindo(a) ao repositório central que hospeda os artefatos técnicos da minha jornada como **Analista Quantitativo e Desenvolvedor de Dados**. 
-
-Este ambiente atua como um laboratório prático para pesquisa e experimentação, cobrindo o clico de vida ponta a ponta dos dados: desde a engenharia de Extração e Limpeza (ETL) até a abstração matemática de Sinais via Transformadas e Gestão da Fronteira Eficiente.
-
+Este repositório reúne meus projetos desenvolvidos entre 2023 e 2025, focados em Economia Quantitativa, Engenharia de Dados e Automação. Utilizo Python e SQL para converter teorias complexas em soluções práticas, abrangendo desde a otimização de portfólios financeiros e gestão de risco até a criação de ferramentas de análise de dados para economias virtuais. 
 ---
 
 ## 🏛️ Estrutura Arquitetural do Repositório
